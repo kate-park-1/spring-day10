@@ -1,6 +1,8 @@
 package Order.miniproject.Service;
 
+import Order.miniproject.domain.Book;
 import Order.miniproject.domain.Item;
+import Order.miniproject.domain.dto.BookDto;
 import Order.miniproject.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,17 @@ public class ItemService {
   public Long saveItem(Item item) {
     itemRepository.save(item);
     return item.getId();
+  }
+
+  @Transactional
+  public void updateItem(Long id, BookDto bookDto) {
+    Book book = (Book)itemRepository.findById(id);
+    book.setName(bookDto.getName());
+    book.setPrice(bookDto.getPrice());
+    book.setStockQuantity(bookDto.getStockQuantity());
+    book.setAuthor(bookDto.getAuthor());
+    book.setIsbn(bookDto.getIsbn());
+    System.out.println(bookDto.toString());
   }
 
   public List<Item> findAllItems() {

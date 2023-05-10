@@ -2,14 +2,14 @@ package Order.miniproject.controller;
 
 import Order.miniproject.Service.ItemService;
 import Order.miniproject.domain.Book;
+import Order.miniproject.domain.Item;
 import Order.miniproject.domain.dto.BookDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,6 +31,42 @@ public class ItemController {
     book.setAuthor(bookDto.getAuthor());
     book.setIsbn(bookDto.getIsbn());
     itemService.saveItem(book);
+    return "redirect:/items/itemList";
+  }
+
+  @GetMapping("/itemList")
+  public String itemList(Model model) {
+    model.addAttribute("items", itemService.findAllItems());
+    return "items/itemList";
+  }
+
+  @GetMapping("/itemInfo/{id}")
+  public String itemInfo(@PathVariable Long id,
+                         Model model) {
+    Book item = (Book)itemService.findItem(id);
+
+    BookDto bookDto = new BookDto(item.getId(), item.getName(), item.getPrice(),item.getStockQuantity(),
+                          item.getAuthor(),item.getIsbn());
+    model.addAttribute("item", bookDto);
+    return "items/itemInfo";
+  }
+
+  @GetMapping("/updateItem/{id}")
+  public String itemUpdate(@PathVariable Long id,
+                           Model model) {
+    Book item = (Book)itemService.findItem(id);
+    BookDto bookDto = new BookDto(item.getId(), item.getName(), item.getPrice(),item.getStockQuantity(),
+        item.getAuthor(),item.getIsbn());
+    model.addAttribute("item", bookDto);
+    return "items/updateItem";
+  }
+
+  @PostMapping("/updateItem/{id}")
+  public String itemUpdateProcess(@PathVariable Long id,
+                                  @ModelAttribute BookDto bookDto,
+                                  RedirectAttributes redirectAttributes){
+    itemService.updateItem(id, bookDto);
+    redirectAttributes.addAttribute("message2",true);
     return "redirect:/items/itemList";
   }
 }

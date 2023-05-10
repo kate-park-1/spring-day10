@@ -23,17 +23,17 @@
     <tbody>
       <tr th:each = "item : ${items}">
         <td>
-          <a  href= "" th:href="@{/items/itemInfo/{id}(id=${item.id})}" th:text="${item.id}">1</a>
+          <a  href= "" th:href="@{/items/itemInfo/{id}(id=${item.id})}" th:text="${item.id}"></a>
         </td>
         <td>
-          <a  href="" th:href="@{/items/itemInfo/{id}(id=${item.id})}" th:text="${item.itemName}">itemA</a>
+          <a  href="" th:href="@{/items/itemInfo/{id}(id=${item.id})}" th:text="${item.name}"></a>
         </td>
         <td th:text="${item.price}"></td>
-        <td th:text="${item.quantity}"></td>
+        <td th:text="${item.stockQuantity}"></td>
       </tr>
     </tbody>
   </table>
-  <p th:if="${param.message1}" th:text="'상품등록이완료되었습니다.'"></p>
+  <p th:if="${param.message1}" th:text="'상품 등록이 완료되었습니다.'"></p>
   <p th:if="${param.message2}" th:text="'상품 수정이 완료되었습니다.'"></p>
 </body>
 </html>

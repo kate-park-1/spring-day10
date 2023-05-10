@@ -8,28 +8,50 @@
 </head>
 <body>
   <h2>상품 상세 조회</h2>
-  <div th:object="${item}">
-    <div>
-      <label>상품ID</label>
-      <input type="text" th:value="${item.id}" readonly>
+  <form class="form">
+  <div th:object="${item}" >
+    <div class="mb-3 row">
+      <label class="col-sm-2 col-form-label">상품ID</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text" th:value="${item.id}" readonly>
+      </div>
     </div>
-     <div>
-       <label>상품명</label>
-       <input type="text" th:value="*{itemName}" readonly>
+     <div class="mb-3 row">
+       <label class="col-sm-2 col-form-label">상품명</label>
+       <div class="col-sm-10">
+          <input class="form-control" type="text" th:value="*{name}" readonly>
+       </div>
      </div>
-    <div>
-      <label>상품가격</label>
-      <input type="text" th:value="*{price}" readonly>
+    <div class="mb-3 row">
+      <label class="col-sm-2 col-form-label">저자</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text" th:value="*{author}" readonly>
+      </div>
     </div>
-    <div>
-      <label>상품수량</label>
-      <input type="text" th:value="*{quantity}" readonly>
+    <div class="mb-3 row">
+      <label class="col-sm-2 col-form-label">ISBN</label>
+      <div class="col-sm-10">
+        <input class="form-control"  type="text" th:value="*{isbn}" readonly>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label class="col-sm-2 col-form-label">상품가격</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text" th:value="*{price}" readonly>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label class="col-sm-2 col-form-label">상품수량</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text" th:value="*{stockQuantity}" readonly>
+      </div>
     </div>
 
     <div class="form-row float-center">
       <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/items/updateItem/{id}(id=${item.id})}'|">상품 수정</button>
       <button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/items/itemList}'|">상품 목록</button>
     </div>
+  </form>
   </div>
 </body>
 </html>
