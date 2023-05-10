@@ -50,18 +50,29 @@ class OrderServiceTest {
   void 재고수량초과주문테스트() {
     // 멤버, 책 , 주문아이템, 주문등록
     Long memberId = createMember();
-    Member member = memberService.findOneMember(memberId);
     Long itemId = createItem();
     Item item = itemService.findItem(itemId);
+    //when,then
+    try {
+      Long orderId = orderService.saveOrder(memberId, itemId, 110);
+    } catch (Exception e) {
+      assertThat("not enough stock to decrease").isEqualTo(e.getMessage());
+    }
   }
 
   @Test
   void 주문취소테스트() {
     // 멤버, 책 , 주문아이템, 주문등록 , 주문취소
     Long memberId = createMember();
-    Member member = memberService.findOneMember(memberId);
     Long itemId = createItem();
     Item item = itemService.findItem(itemId);
+    Long orderId = orderService.saveOrder(memberId, itemId, 10);
+    Order order = orderRepository.findById(orderId);
+    //when
+    orderService.cancelOrder(orderId);
+    //then
+    assertThat(100).isEqualTo(item.getStockQuantity());
+    assertThat(OrderStatus.CANCEL).isEqualTo(order.getOrderStatus());
   }
 
   Long createMember(){

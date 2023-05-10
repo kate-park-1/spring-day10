@@ -1,9 +1,10 @@
 package Order.miniproject.repository;
 
 import Order.miniproject.domain.Item;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemRepository {
 
-  private final EntityManager em;
+  private final EntityManager em ;
 
   public void save(Item item) {
     em.persist(item);
