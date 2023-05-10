@@ -30,7 +30,7 @@ public class ItemService {
     book.setStockQuantity(bookDto.getStockQuantity());
     book.setAuthor(bookDto.getAuthor());
     book.setIsbn(bookDto.getIsbn());
-    System.out.println(bookDto.toString());
+    //System.out.println(bookDto.toString());
   }
 
   public List<Item> findAllItems() {

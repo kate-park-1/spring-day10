@@ -46,27 +46,24 @@ public class ItemController {
     Book item = (Book)itemService.findItem(id);
 
     BookDto bookDto = new BookDto(item.getId(), item.getName(), item.getPrice(),item.getStockQuantity(),
-                          item.getAuthor(),item.getIsbn());
+                                  item.getAuthor(),item.getIsbn());
     model.addAttribute("item", bookDto);
     return "items/itemInfo";
   }
 
   @GetMapping("/updateItem/{id}")
-  public String itemUpdate(@PathVariable Long id,
-                           Model model) {
+  public String updateItem(@PathVariable Long id, Model model){
     Book item = (Book)itemService.findItem(id);
-    BookDto bookDto = new BookDto(item.getId(), item.getName(), item.getPrice(),item.getStockQuantity(),
-        item.getAuthor(),item.getIsbn());
-    model.addAttribute("item", bookDto);
-    return "items/updateItem";
+    BookDto bookDto = new BookDto(item.getId(),item.getName(),item.getPrice(),item.getStockQuantity(),
+                                  item.getAuthor(),item.getIsbn());
+    model.addAttribute("item",bookDto);
+    return "items/updateItem";    
   }
 
   @PostMapping("/updateItem/{id}")
-  public String itemUpdateProcess(@PathVariable Long id,
-                                  @ModelAttribute BookDto bookDto,
-                                  RedirectAttributes redirectAttributes){
+  public String updateItemProcess(@PathVariable Long id,
+                                  @ModelAttribute BookDto bookDto){
     itemService.updateItem(id, bookDto);
-    redirectAttributes.addAttribute("message2",true);
     return "redirect:/items/itemList";
   }
 }

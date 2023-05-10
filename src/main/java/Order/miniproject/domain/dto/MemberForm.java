@@ -8,8 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MemberDto {
+public class MemberForm {
   Long id;
   String name;
-  Address address;
 }
